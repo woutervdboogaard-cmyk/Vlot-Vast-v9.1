@@ -14,9 +14,9 @@
     <div class="heroTitle">Kies een avontuur</div>
     <p class="heroText">Vosje helpt je oefenen. Elke goede opdracht geeft XP. Bij een nieuw level krijg je confetti 🎉</p>
 
-    <a class="bigLink bigNums" href="./numbers.html?v=91"><span>🔢 Cijfers</span><span class="btnIcon"><img src="./assets/icon_numbers.svg" alt="cijfers"/></span></a>
+    <a class="bigLink bigNums" href="./numbers.html"><span>🔢 Cijfers</span><span class="btnIcon"><img src="./assets/icon_numbers.svg" alt="cijfers"/></span></a>
     <div style="height:10px"></div>
-    <a class="bigLink bigLets" href="./letters.html?v=91"><span>🔤 Letters</span><span class="btnIcon"><img src="./assets/icon_letters.svg" alt="letters"/></span></a>
+    <a class="bigLink bigLets" href="./letters.html"><span>🔤 Letters</span><span class="btnIcon"><img src="./assets/icon_letters.svg" alt="letters"/></span></a>
 
     <div class="stage" style="margin-top:12px;">
       <div class="question" style="font-size:18px;">Jouw level-pad</div>
@@ -39,7 +39,7 @@
   </div>
 </div>
 
-<script>
+<script src="./assets/core.js"></script><script>
 const state=loadState();
 const pd=getActiveProfile(state); ensureProgress(pd);
 const active=state.profiles.find(p=>p.id===state.settings.activeProfileId);
@@ -55,4 +55,4 @@ function setToast(kind,text){ const t=document.getElementById("toast"); t.classN
 document.getElementById("btnStartAudio").addEventListener("click", ()=>{ setAudioOk();
     speakNL("Hoi! Ik ben Vosje. Kies cijfers of letters en oefen rustig.", state); setToast("good","Stem is klaar ✅"); });
 </script>
-</div><script src="./assets/core.js"></script><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script></body></html>
+</div><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script></body></html>
