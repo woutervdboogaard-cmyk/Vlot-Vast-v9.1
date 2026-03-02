@@ -1,30 +1,11 @@
- (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
 diff --git a/index.html b/index.html
-index 0a1af047a06146e5b22e2367eadc8efb073c5ff7..f87cd62a0aded27dfefad0825039f97b726c7a0a 100644
+index 0a1af047a06146e5b22e2367eadc8efb073c5ff7..1ed7ff31219527e1b68d9cee35fba380a668426a 100644
 --- a/index.html
 +++ b/index.html
-@@ -1,58 +1,58 @@
- <!doctype html><html lang="nl"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Vlot & Vast</title><link rel="manifest" href="./manifest.json"/><link rel="stylesheet" href="./assets/styles.css"/></head><body><div class="container">
- <div class="topbar">
-   <div class="brand"><div class="logo"><img src="./assets/icon-192.png" alt="Vosje" style="width:100%;height:100%;display:block"/></div><div><h1>Vlot & Vast</h1><div class="subtitle">Speels oefenen • groei met levels • rustig tempo</div></div></div>
-   <div class="row">
-     <span class="pill" id="pillProfile">👤</span>
-     <span class="pill" id="pillLevel">⭐</span>
-     <a class="pill" href="./rewards.html">🎁 Stickers</a>
-     <a class="pill" href="./parent.html">🔒 Ouder</a>
-   </div>
- </div>
- 
- <div class="hero">
-   <div class="heroLeft">
-     <div class="heroTitle">Kies een avontuur</div>
-     <p class="heroText">Vosje helpt je oefenen. Elke goede opdracht geeft XP. Bij een nieuw level krijg je confetti 🎉</p>
- 
--    <a class="bigLink bigNums" href="./numbers.html?v=91"><span>🔢 Cijfers</span><span class="btnIcon"><img src="./assets/icon_numbers.svg" alt="cijfers"/></span></a>
-+    <a class="bigLink bigNums" href="./numbers.html"><span>🔢 Cijfers</span><span class="btnIcon"><img src="./assets/icon_numbers.svg" alt="cijfers"/></span></a>
+@@ -17,42 +17,43 @@
+     <a class="bigLink bigNums" href="./numbers.html?v=91"><span>🔢 Cijfers</span><span class="btnIcon"><img src="./assets/icon_numbers.svg" alt="cijfers"/></span></a>
      <div style="height:10px"></div>
--    <a class="bigLink bigLets" href="./letters.html?v=91"><span>🔤 Letters</span><span class="btnIcon"><img src="./assets/icon_letters.svg" alt="letters"/></span></a>
-+    <a class="bigLink bigLets" href="./letters.html"><span>🔤 Letters</span><span class="btnIcon"><img src="./assets/icon_letters.svg" alt="letters"/></span></a>
+     <a class="bigLink bigLets" href="./letters.html?v=91"><span>🔤 Letters</span><span class="btnIcon"><img src="./assets/icon_letters.svg" alt="letters"/></span></a>
  
      <div class="stage" style="margin-top:12px;">
        <div class="question" style="font-size:18px;">Jouw level-pad</div>
@@ -47,8 +28,8 @@ index 0a1af047a06146e5b22e2367eadc8efb073c5ff7..f87cd62a0aded27dfefad0825039f97b
    </div>
  </div>
  
--<script>
-+<script src="./assets/core.js"></script><script>
++<script src="./assets/core.js"></script>
+ <script>
  const state=loadState();
  const pd=getActiveProfile(state); ensureProgress(pd);
  const active=state.profiles.find(p=>p.id===state.settings.activeProfileId);
@@ -68,6 +49,3 @@ index 0a1af047a06146e5b22e2367eadc8efb073c5ff7..f87cd62a0aded27dfefad0825039f97b
 \ No newline at end of file
 +</div><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script></body></html>
 \ No newline at end of file
- 
-EOF
-)
