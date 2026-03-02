@@ -1,58 +1,73 @@
-<!doctype html><html lang="nl"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Vlot & Vast</title><link rel="manifest" href="./manifest.json"/><link rel="stylesheet" href="./assets/styles.css"/></head><body><div class="container">
-<div class="topbar">
-  <div class="brand"><div class="logo"><img src="./assets/icon-192.png" alt="Vosje" style="width:100%;height:100%;display:block"/></div><div><h1>Vlot & Vast</h1><div class="subtitle">Speels oefenen • groei met levels • rustig tempo</div></div></div>
-  <div class="row">
-    <span class="pill" id="pillProfile">👤</span>
-    <span class="pill" id="pillLevel">⭐</span>
-    <a class="pill" href="./rewards.html">🎁 Stickers</a>
-    <a class="pill" href="./parent.html">🔒 Ouder</a>
-  </div>
-</div>
-
-<div class="hero">
-  <div class="heroLeft">
-    <div class="heroTitle">Kies een avontuur</div>
-    <p class="heroText">Vosje helpt je oefenen. Elke goede opdracht geeft XP. Bij een nieuw level krijg je confetti 🎉</p>
-
-    <a class="bigLink bigNums" href="./numbers.html?v=91"><span>🔢 Cijfers</span><span class="btnIcon"><img src="./assets/icon_numbers.svg" alt="cijfers"/></span></a>
-    <div style="height:10px"></div>
-    <a class="bigLink bigLets" href="./letters.html?v=91"><span>🔤 Letters</span><span class="btnIcon"><img src="./assets/icon_letters.svg" alt="letters"/></span></a>
-
-    <div class="stage" style="margin-top:12px;">
-      <div class="question" style="font-size:18px;">Jouw level-pad</div>
-      <p class="hint">Level 3: klanken (optioneel). Level 4: optellen (optioneel).</p>
-      <div class="row" id="nodes" style="margin-top:10px;"></div>
-    </div>
-  </div>
-
-  <div class="card sideCard">
-    <div class="row" style="align-items:center;">
-      <span class="pill">🦊 Vosje</span><span class="spacer"></span>
-      <button class="btn btn-secondary" id="btnStartAudio">🔊 Start</button>
-    </div>
-    <div class="stage">
-      <div class="question" style="font-size:18px;">Start-knop (belangrijk)</div>
-      <p class="hint">Op iPad/iPhone mag spraak pas na een klik. Druk 1x op Start.</p>
-      <div class="toast" id="toast"></div>
-    </div>
-    <img class="mascotFloat" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%0A%3Cdefs%3E%3ClinearGradient%20id%3D%22g1%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ff7a59%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffb74a%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%3Cpath%20d%3D%22M96%20236c0-80%2064-140%20160-140s160%2060%20160%20140c0%20126-84%20196-160%20196S96%20362%2096%20236z%22%20fill%3D%22url%28%23g1%29%22/%3E%0A%3Cpath%20d%3D%22M170%20170%20118%2092c-10-15%206-33%2023-26l92%2037%22%20fill%3D%22%23ff6a3d%22/%3E%0A%3Cpath%20d%3D%22M342%20170%20394%2092c10-15-6-33-23-26l-92%2037%22%20fill%3D%22%23ff6a3d%22/%3E%0A%3Cpath%20d%3D%22M152%20272c16%2058%2060%2096%20104%2096s88-38%20104-96c-36-20-72-30-104-30s-68%2010-104%2030z%22%20fill%3D%22%23fff7ed%22/%3E%0A%3Ccircle%20cx%3D%22200%22%20cy%3D%22240%22%20r%3D%2218%22%20fill%3D%22%231f2937%22/%3E%3Ccircle%20cx%3D%22312%22%20cy%3D%22240%22%20r%3D%2218%22%20fill%3D%22%231f2937%22/%3E%0A%3Cpath%20d%3D%22M256%20260c12%200%2022%208%2022%2018s-10%2018-22%2018-22-8-22-18%2010-18%2022-18z%22%20fill%3D%22%231f2937%22/%3E%0A%3Cpath%20d%3D%22M220%20308c10%2014%2022%2022%2036%2022s26-8%2036-22%22%20fill%3D%22none%22%20stroke%3D%22%231f2937%22%20stroke-width%3D%2214%22%20stroke-linecap%3D%22round%22/%3E%0A%3C/svg%3E" alt="vosje"/>
-  </div>
-</div>
-
-<script>
-const state=loadState();
-const pd=getActiveProfile(state); ensureProgress(pd);
-const active=state.profiles.find(p=>p.id===state.settings.activeProfileId);
-document.getElementById("pillProfile").textContent="👤 "+(active?.name||"");
-document.getElementById("pillLevel").textContent="⭐ Level "+pd.progress.level+" • nog "+xpToNext(pd.progress.level, pd.progress.xp)+" XP";
-const nodes=document.getElementById("nodes");
-for(let i=1;i<=5;i++){
-  const n=document.createElement("span"); n.className="pill";
-  n.textContent=(i<pd.progress.level)?"✓ "+i:(i===pd.progress.level?"➡️ "+i:"🔒 "+i);
-  nodes.appendChild(n);
-}
-function setToast(kind,text){ const t=document.getElementById("toast"); t.className="toast show "+(kind==="good"?"good":"bad"); t.textContent=text; }
-document.getElementById("btnStartAudio").addEventListener("click", ()=>{ setAudioOk();
-    speakNL("Hoi! Ik ben Vosje. Kies cijfers of letters en oefen rustig.", state); setToast("good","Stem is klaar ✅"); });
-</script>
-</div><script src="./assets/core.js"></script><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script></body></html>
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/index.html b/index.html
+index 0a1af047a06146e5b22e2367eadc8efb073c5ff7..f87cd62a0aded27dfefad0825039f97b726c7a0a 100644
+--- a/index.html
++++ b/index.html
+@@ -1,58 +1,58 @@
+ <!doctype html><html lang="nl"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Vlot & Vast</title><link rel="manifest" href="./manifest.json"/><link rel="stylesheet" href="./assets/styles.css"/></head><body><div class="container">
+ <div class="topbar">
+   <div class="brand"><div class="logo"><img src="./assets/icon-192.png" alt="Vosje" style="width:100%;height:100%;display:block"/></div><div><h1>Vlot & Vast</h1><div class="subtitle">Speels oefenen • groei met levels • rustig tempo</div></div></div>
+   <div class="row">
+     <span class="pill" id="pillProfile">👤</span>
+     <span class="pill" id="pillLevel">⭐</span>
+     <a class="pill" href="./rewards.html">🎁 Stickers</a>
+     <a class="pill" href="./parent.html">🔒 Ouder</a>
+   </div>
+ </div>
+ 
+ <div class="hero">
+   <div class="heroLeft">
+     <div class="heroTitle">Kies een avontuur</div>
+     <p class="heroText">Vosje helpt je oefenen. Elke goede opdracht geeft XP. Bij een nieuw level krijg je confetti 🎉</p>
+ 
+-    <a class="bigLink bigNums" href="./numbers.html?v=91"><span>🔢 Cijfers</span><span class="btnIcon"><img src="./assets/icon_numbers.svg" alt="cijfers"/></span></a>
++    <a class="bigLink bigNums" href="./numbers.html"><span>🔢 Cijfers</span><span class="btnIcon"><img src="./assets/icon_numbers.svg" alt="cijfers"/></span></a>
+     <div style="height:10px"></div>
+-    <a class="bigLink bigLets" href="./letters.html?v=91"><span>🔤 Letters</span><span class="btnIcon"><img src="./assets/icon_letters.svg" alt="letters"/></span></a>
++    <a class="bigLink bigLets" href="./letters.html"><span>🔤 Letters</span><span class="btnIcon"><img src="./assets/icon_letters.svg" alt="letters"/></span></a>
+ 
+     <div class="stage" style="margin-top:12px;">
+       <div class="question" style="font-size:18px;">Jouw level-pad</div>
+       <p class="hint">Level 3: klanken (optioneel). Level 4: optellen (optioneel).</p>
+       <div class="row" id="nodes" style="margin-top:10px;"></div>
+     </div>
+   </div>
+ 
+   <div class="card sideCard">
+     <div class="row" style="align-items:center;">
+       <span class="pill">🦊 Vosje</span><span class="spacer"></span>
+       <button class="btn btn-secondary" id="btnStartAudio">🔊 Start</button>
+     </div>
+     <div class="stage">
+       <div class="question" style="font-size:18px;">Start-knop (belangrijk)</div>
+       <p class="hint">Op iPad/iPhone mag spraak pas na een klik. Druk 1x op Start.</p>
+       <div class="toast" id="toast"></div>
+     </div>
+     <img class="mascotFloat" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%0A%3Cdefs%3E%3ClinearGradient%20id%3D%22g1%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ff7a59%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffb74a%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A%3Cpath%20d%3D%22M96%20236c0-80%2064-140%20160-140s160%2060%20160%20140c0%20126-84%20196-160%20196S96%20362%2096%20236z%22%20fill%3D%22url%28%23g1%29%22/%3E%0A%3Cpath%20d%3D%22M170%20170%20118%2092c-10-15%206-33%2023-26l92%2037%22%20fill%3D%22%23ff6a3d%22/%3E%0A%3Cpath%20d%3D%22M342%20170%20394%2092c10-15-6-33-23-26l-92%2037%22%20fill%3D%22%23ff6a3d%22/%3E%0A%3Cpath%20d%3D%22M152%20272c16%2058%2060%2096%20104%2096s88-38%20104-96c-36-20-72-30-104-30s-68%2010-104%2030z%22%20fill%3D%22%23fff7ed%22/%3E%0A%3Ccircle%20cx%3D%22200%22%20cy%3D%22240%22%20r%3D%2218%22%20fill%3D%22%231f2937%22/%3E%3Ccircle%20cx%3D%22312%22%20cy%3D%22240%22%20r%3D%2218%22%20fill%3D%22%231f2937%22/%3E%0A%3Cpath%20d%3D%22M256%20260c12%200%2022%208%2022%2018s-10%2018-22%2018-22-8-22-18%2010-18%2022-18z%22%20fill%3D%22%231f2937%22/%3E%0A%3Cpath%20d%3D%22M220%20308c10%2014%2022%2022%2036%2022s26-8%2036-22%22%20fill%3D%22none%22%20stroke%3D%22%231f2937%22%20stroke-width%3D%2214%22%20stroke-linecap%3D%22round%22/%3E%0A%3C/svg%3E" alt="vosje"/>
+   </div>
+ </div>
+ 
+-<script>
++<script src="./assets/core.js"></script><script>
+ const state=loadState();
+ const pd=getActiveProfile(state); ensureProgress(pd);
+ const active=state.profiles.find(p=>p.id===state.settings.activeProfileId);
+ document.getElementById("pillProfile").textContent="👤 "+(active?.name||"");
+ document.getElementById("pillLevel").textContent="⭐ Level "+pd.progress.level+" • nog "+xpToNext(pd.progress.level, pd.progress.xp)+" XP";
+ const nodes=document.getElementById("nodes");
+ for(let i=1;i<=5;i++){
+   const n=document.createElement("span"); n.className="pill";
+   n.textContent=(i<pd.progress.level)?"✓ "+i:(i===pd.progress.level?"➡️ "+i:"🔒 "+i);
+   nodes.appendChild(n);
+ }
+ function setToast(kind,text){ const t=document.getElementById("toast"); t.className="toast show "+(kind==="good"?"good":"bad"); t.textContent=text; }
+ document.getElementById("btnStartAudio").addEventListener("click", ()=>{ setAudioOk();
+     speakNL("Hoi! Ik ben Vosje. Kies cijfers of letters en oefen rustig.", state); setToast("good","Stem is klaar ✅"); });
+ </script>
+-</div><script src="./assets/core.js"></script><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script></body></html>
+\ No newline at end of file
++</div><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script></body></html>
+\ No newline at end of file
+ 
+EOF
+)
