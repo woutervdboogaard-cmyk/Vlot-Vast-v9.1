@@ -1,22 +1,13 @@
-{
-  "name": "Vlot & Vast",
-  "short_name": "VlotVast",
-  "start_url": "./index.html?v=91",
-  "display": "standalone",
-  "background_color": "#f0f9ff",
-  "theme_color": "#22c55e",
-  "icons": [
-    {
-      "src": "./assets/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
-}
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/parent.html b/parent.html
+index 4f326e6bfb891dda71bb76a03d8bfc772eb86bea..7ab4e45dc8c0d5340d6bb75412a64e4279f83ed1 100644
+--- a/parent.html
++++ b/parent.html
+@@ -1 +1 @@
+-<!doctype html><html lang="nl"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Ouder</title><link rel="manifest" href="./manifest.json"/><link rel="stylesheet" href="./assets/styles.css"/></head><body><div class="container"><div class='card'><div class='stage'><div class='question'>Ouder</div><p class='hint'>Basispagina (nog niet volledig).</p><a class='pill' href='./index.html?v=91'>🏠</a></div></div></div><script src="./assets/core.js"></script><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script></body></html>
+\ No newline at end of file
++<!doctype html><html lang="nl"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Ouder</title><link rel="manifest" href="./manifest.json"/><link rel="stylesheet" href="./assets/styles.css"/></head><body><div class="container"><div class='card'><div class='stage'><div class='question'>Ouder</div><p class='hint'>Basispagina (nog niet volledig).</p><a class='pill' href='./index.html'>🏠</a></div></div></div><script src="./assets/core.js"></script><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script></body></html>
+\ No newline at end of file
+ 
+EOF
+)
